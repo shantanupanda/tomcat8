@@ -1,0 +1,22 @@
+DEPENDENCIES
+  tomcat8
+    path: .
+    metadata: true
+
+GRAPH
+  apt (2.9.2)
+  chef-sugar (3.2.0)
+  java (1.36.0)
+    apt (>= 0.0.0)
+  openssl (4.4.0)
+    chef-sugar (>= 3.1.1)
+  tomcat (1.0.1)
+    java (>= 0.0.0)
+    openssl (>= 0.0.0)
+    yum-epel (>= 0.0.0)
+  tomcat8 (0.1.0)
+    java (>= 0.0.0)
+    tomcat (>= 0.0.0)
+  yum (3.8.2)
+  yum-epel (0.6.5)
+    yum (~> 3.2)
