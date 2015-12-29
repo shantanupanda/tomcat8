@@ -1,5 +1,5 @@
 
-override['tomcat']['base_version'] = 8
+override['tomcat']['base_version'] = '8.0.30'
 override['tomcat']['packages'] = "tomcat#{node['tomcat']['base_version']}"
 override['tomcat']['port'] = 8080
 override['tomcat']['proxy_port'] = nil
@@ -128,7 +128,7 @@ end
 
 
 default['tomcat8']['tomcat_version'] = 'apache-tomcat-8.0.15'
-default['tomcat8']['tomcat_url'] = 'http://mirrors.gigenet.com/apache/tomcat/tomcat-8/v8.0.15/bin/apache-tomcat-8.0.15.tar.gz'
+default['tomcat8']['tomcat_url'] = 'http://www.us.apache.org/dist/tomcat/tomcat-8/v8.0.30/bin/apache-tomcat-8.0.30.tar.gz'
 default['tomcat8']['checksum'] = '2cc244070d01193c541e526564068e6f4e9ecade22380e38e681e931f3dc3699'
 default['tomcat8']['password'] = '$1$FriiR'
 default['tomcat8']['installation_directory'] = '/opt'
