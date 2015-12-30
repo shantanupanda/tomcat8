@@ -1,23 +1,28 @@
 tomcat8 Cookbook
 ================
-TODO: Enter the cookbook description here.
+Installs base Tomcat 8 and Java 8 to have a tomcat server to deploy 
 
-e.g.
-This cookbook makes your favorite breakfast sandwich.
 
 Requirements
 ------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
 
-e.g.
-#### packages
-- `toaster` - tomcat8 needs toaster to brown your bagel.
+Platforms:
+
+    Debian / Ubuntu derivatives
+    RHEL derivatives
+    Fedora
+
+Chef
+
+    Chef 12.1+
+
+Cookbooks
+
+    java
+    tomcat
 
 Attributes
-----------
-TODO: List your cookbook attributes here.
-
-e.g.
+---------- 
 #### tomcat8::default
 <table>
   <tr>
@@ -27,12 +32,13 @@ e.g.
     <th>Default</th>
   </tr>
   <tr>
-    <td><tt>['tomcat8']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
+    <td><tt>['tomcat']['base_version']</tt></td>
+    <td>String</td>
+    <td>Yes</td>
+    <td><tt>8.0.30</tt></td>
   </tr>
 </table>
+
 
 Usage
 -----
@@ -53,7 +59,7 @@ Just include `tomcat8` in your node's `run_list`:
 
 Contributing
 ------------
-TODO: (optional) If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.
+If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.
 
 e.g.
 1. Fork the repository on Github
@@ -65,5 +71,5 @@ e.g.
 
 License and Authors
 -------------------
-Authors: TODO: List authors
+Authors: Shantanu Panda
 # tomcat8

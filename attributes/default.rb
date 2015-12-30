@@ -127,9 +127,7 @@ else
 end
 
 
-default['tomcat8']['tomcat_version'] = 'apache-tomcat-8.0.15'
 default['tomcat8']['tomcat_url'] = 'http://www.us.apache.org/dist/tomcat/tomcat-8/v8.0.30/bin/apache-tomcat-8.0.30.tar.gz'
-default['tomcat8']['checksum'] = '2cc244070d01193c541e526564068e6f4e9ecade22380e38e681e931f3dc3699'
 default['tomcat8']['password'] = nil
 default['tomcat8']['installation_directory'] = '/opt'
 default['tomcat8']['shell'] = '/bin/bash'

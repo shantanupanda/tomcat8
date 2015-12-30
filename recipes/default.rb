@@ -35,7 +35,6 @@ end
 
 remote_file "#{node['tomcat8']['installation_directory']}/apache-tomcat-#{node['tomcat']['base_version']}.tar.gz" do
   source node['tomcat8']['tomcat_url']
-  checksum node['tomcat8']['checksum']
   owner 'tomcat'
 end
 
@@ -57,21 +56,11 @@ bash "change ownership of the extracted apache directory to tomcat" do
     sudo chown -R tomcat webapps/ work/ temp/ logs/
   EOH
 end
-
-#template '/etc/init/tomcat.conf' do
- # source 'tomcat8_upstart.erb'
- # owner 'root'
- # group 'root'
- # mode '0755'
-#end
-
+ 
 bash "start_tomcat" do
   user 'root'
   cwd "#{node['tomcat8']['installation_directory']}/tomcat"
   code <<-EOH
-#  curl localhost:8080 > /dev/null 2&>1
-#   sudo initctl reload-configuration
-#   sudo initctl start tomcat
     sudo ./bin/startup.sh
 EOH
 end
