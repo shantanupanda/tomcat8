@@ -7,16 +7,30 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe 'java'
+
+include_recipe 'javaw'
 
 if node['tomcat']['base_version'].to_i < 8
 include_recipe 'tomcat::default'
 
 else
+
+group "tomcat" do
+append true
+end 
+
 user "tomcat" do
   comment "apache tomcat system account"
   shell node['tomcat8']['shell']
   password node['tomcat8']['password']
+  group 'tomcat'
+end
+
+directory "#{node['tomcat8']['installation_directory']}/tomcat" do
+  owner 'root'
+  group 'root'
+  mode '0755'
+  action :create
 end
 
 remote_file "#{node['tomcat8']['installation_directory']}/apache-tomcat-#{node['tomcat']['base_version']}.tar.gz" do
@@ -29,33 +43,37 @@ bash "extract_tomcat" do
   user 'root'
   cwd node['tomcat8']['installation_directory']
   code <<-EOH
-  if [ -d "apache-tomcat-#{node['tomcat']['base_version']}" ]; then
-    echo 'The tomcat target directory has already been extracted'
-  else
-    tar -zxvf "apache-tomcat-#{node['tomcat']['base_version']}.tar.gz"
-  fi
+    tar -zxvf "apache-tomcat-#{node['tomcat']['base_version']}.tar.gz" -C /opt/tomcat --strip-components=1
   EOH
 end
 
 bash "change ownership of the extracted apache directory to tomcat" do
   user 'root'
-  cwd node['tomcat8']['installation_directory']
+  cwd "#{node['tomcat8']['installation_directory']}/tomcat"
   code <<-EOH
-  chown -R tomcat "apache-tomcat-#{node['tomcat']['base_version']}"
+    sudo chgrp -R tomcat conf
+    sudo chmod g+rwx conf
+    sudo chmod g+r conf/*
+    sudo chown -R tomcat webapps/ work/ temp/ logs/
   EOH
 end
 
+#template '/etc/init/tomcat.conf' do
+ # source 'tomcat8_upstart.erb'
+ # owner 'root'
+ # group 'root'
+ # mode '0755'
+#end
+
 bash "start_tomcat" do
-  user "tomcat"
-  cwd "#{node['tomcat8']['installation_directory']}/apache-tomcat-#{node['tomcat']['base_version']}/bin"
+  user 'root'
+  cwd "#{node['tomcat8']['installation_directory']}/tomcat"
   code <<-EOH
-  curl localhost:8080 > /dev/null 2&>1
-  if [ $? == 0 ]; then
-    echo 'Tomcat is already running'
-  else
-    ./catalina.sh start
-  fi
-  EOH
+#  curl localhost:8080 > /dev/null 2&>1
+#   sudo initctl reload-configuration
+#   sudo initctl start tomcat
+    sudo ./bin/startup.sh
+EOH
 end
 
 end
